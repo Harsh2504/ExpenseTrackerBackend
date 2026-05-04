@@ -1,5 +1,5 @@
 using ExpenseTrackerBackend.DTOs;
-using ExpenseTrackerBackend.Services;
+using ExpenseTrackerBackend.Services.Interfaces;
 using ExpenseTrackerBackend.Validations;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +12,12 @@ namespace ExpenseTrackerBackend.Controllers
     {
         private readonly IExpenseService _service;
 
-        public ExpensesController(IExpenseService service)
+        private readonly IErrorMessageService _errorMessages;
+
+        public ExpensesController(IExpenseService service,IErrorMessageService errorMessages)
         {
             _service = service;
+            _errorMessages = errorMessages;
         }
 
         [HttpPost]
@@ -29,8 +32,10 @@ namespace ExpenseTrackerBackend.Controllers
             {
                 return BadRequest(new
                 {
-                    errorCode = ex.ErrorCode
+                    errorCode = ex.ErrorCode,
+                    message = _errorMessages.GetMessage(ex.ErrorCode)
                 });
+
             }
         }
 

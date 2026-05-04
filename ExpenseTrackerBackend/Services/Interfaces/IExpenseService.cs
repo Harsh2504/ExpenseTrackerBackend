@@ -1,6 +1,6 @@
 ﻿using ExpenseTrackerBackend.DTOs;
 
-namespace ExpenseTrackerBackend.Services
+namespace ExpenseTrackerBackend.Services.Interfaces
 {
     public interface IExpenseService
     {

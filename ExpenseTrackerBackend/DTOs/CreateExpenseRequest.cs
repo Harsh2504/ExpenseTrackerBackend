@@ -8,7 +8,7 @@ namespace ExpenseTrackerBackend.DTOs
         public decimal Amount { get; set; }
         public string Currency { get; set; } = "INR";
         public DateTime Date { get; set; }
-        public ExpenseCategory Category { get; set; }
+        public string Category { get; set; } = string.Empty;
     }
 
 }

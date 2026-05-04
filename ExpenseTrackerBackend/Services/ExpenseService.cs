@@ -1,6 +1,7 @@
 ﻿using ExpenseTrackerBackend.DTOs;
 using ExpenseTrackerBackend.Models;
 using ExpenseTrackerBackend.Repositories;
+using ExpenseTrackerBackend.Services.Interfaces;
 using ExpenseTrackerBackend.Validations;
 
 namespace ExpenseTrackerBackend.Services
@@ -23,13 +24,23 @@ namespace ExpenseTrackerBackend.Services
             if (request.Amount <= 0)
                 throw new ExpenseValidationException("INVALID_AMOUNT");
 
+
+            if (!Enum.TryParse<ExpenseCategory>(
+                    request.Category,
+                    ignoreCase: true,
+                    out var category))
+            {
+                throw new ExpenseValidationException("INVALID_CATEGORY");
+            }
+
+
             var expense = new Expense
             {
                 Title = request.Title,
                 Amount = request.Amount,
                 Currency = request.Currency,
                 Date = request.Date,
-                Category = request.Category
+                Category = category
             };
 
             var saved = _repository.Add(expense);

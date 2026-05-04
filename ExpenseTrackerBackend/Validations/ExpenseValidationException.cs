@@ -4,8 +4,7 @@
     {
         public string ErrorCode { get; }
 
-        public ExpenseValidationException(string errorCode)
-            : base(errorCode)
+        public ExpenseValidationException(string errorCode) : base(errorCode)
         {
             ErrorCode = errorCode;
         }
